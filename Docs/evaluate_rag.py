@@ -1,6 +1,3 @@
-# DELETE EVERYTHING IN YOUR FILE ^^^^^
-# PASTE THIS COMPLETE CODE:
-
 import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
@@ -14,11 +11,11 @@ from typing import Dict, List
 
 class SuperchargedNoLLMRAGEvaluator:
     def __init__(self):
-        print("🚀 Loading SUPERCHARGED models...")
+        print("" Loading SUPERCHARGED models...")
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
         nltk.download('punkt', quiet=True)
         self.stemmer = SnowballStemmer('english')
-        print("✅ Supercharged evaluator ready!")
+        print(" Supercharged evaluator ready!")
     
     def super_faithfulness(self, text1: str, text2: str) -> float:
         def stem_words(text):
@@ -55,7 +52,7 @@ class SuperchargedNoLLMRAGEvaluator:
         contexts = data['contexts']
         ground_truths = data['ground_truth']
         
-        print(f"🚀 SUPERCHARGED Evaluation: {len(questions)} questions...")
+        print(f"SUPERCHARGED Evaluation: {len(questions)} questions...")
         start_time = time.time()
         
         faithfulness_scores = [self.super_faithfulness(a, gt) for a, gt in zip(answers, ground_truths)]
@@ -75,10 +72,10 @@ class SuperchargedNoLLMRAGEvaluator:
         }
         
         elapsed = time.time() - start_time
-        print(f"✅ Supercharged complete in {elapsed:.1f}s!")
+        print(f"Supercharged complete in {elapsed:.1f}s!")
         return results
 
-# 🚀 YOUR 15 QUESTIONS (PASTE HERE)
+
 data = {
     "question": [
         "What are the steps for fraud detection?",
@@ -155,13 +152,13 @@ if __name__ == "__main__":
     results = evaluator.evaluate(data)
     
     print("\n" + "="*60)
-    print("🚀 SUPERCHARGED RESULTS (Faithfulness FIXED!)")
+    print("SUPERCHARGED RESULTS (Faithfulness FIXED!)")
     print("="*60)
     for metric, score in results.items():
         if isinstance(score, (int, float)):
             print(f"{metric:20}: {score:.3f} ⭐")
     
-    print("\n📋 Per-Question Breakdown:")
+    print("\n Per-Question Breakdown:")
     print(results['detailed_results'].round(3))
 
     

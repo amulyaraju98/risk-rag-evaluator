@@ -1,5 +1,45 @@
-# Fraud RAG Evaluator
-**80% semantic relevancy beats baselines**
+# Risk Rag Evaluator
+Risk RAG Evaluator is a Dockerized framework that uses RAGAS metrics to evaluate the quality of SOP retrieval compliance from fraud policy documents. It splits SOPs into 512 character chunks with 100 character overlap using custom Python logic, encodes them into 384 dimensional vectors through Sentence Transformers (all-MiniLM-L6-v2), indexes them using FAISS for cosine similarity search, and scores test questions on faithfulness, context coverage, and relevancy, obtaining results greater than 80% in 7.8 seconds to validate production readiness without the need for LLMs.
 
-## Run
-docker build -t fraud-rag-eval . && docker run fraud-rag-eval
+This project involves the following processes -
+
+1. Uses a pre-defined set of fraud-related questions and answers created offline.
+2. Calculates the RAGAS-like measures of semantic relevancy and coverage to evaluate those answers.
+3. To package the evaluation in a Docker image so that anyone can reproduce the results using only one command.
+4. The objective is to return precise SOP answers and measure the level of answer quality concerning a fraud rulebook/SOPs, and not for use as a live chat bot.
+
+**Problem:** 
+Risk investigators know the compliance regulations intuitively, while case teams are buried in hundreds of SOP PDFs and Confluence pages. The 20-60 minute manual process of finding the exact regulations  for each alert leads to delayed decisions, increased false positives, and enabling fraudster payouts during investigation lag.
+
+**Solution:** 
+Risk RAG Evaluator transforms fragmented compliance documents into a production-ready retrieval engine using RAGAS metrics (82% accuracy). Custom chunking (512-char, 100-overlap) + Sentence Transformers (384-dim vectors) + FAISS indexing delivers instant SOP lookup, cutting investigation time from 60 minutes to fewer seconds.
+
+**Technology:** 
+| Layer      | Technology            | Specs                                    |
+| ---------- | --------------------- | ---------------------------------------- |
+| Container  | Docker                | python:3.10-slim (95MB image)            |
+| Evaluation | RAGAS                 | Faithfulness, Context, Relevancy metrics |
+| Chunking   | Custom Python         | 512-char chunks, 100-char overlap        |
+| Embeddings | Sentence Transformers | all-MiniLM-L6-v2 (384-dim vectors)       |
+| Vector DB  | FAISS                 | IndexFlatIP (cosine similarity)          |
+| Data       | Markdown SOPs         | Merchant Onboarding, AML, KYC policies   |
+
+
+**How to use it:** 
+Installation - 
+git clone https://github.com/amulyaraju98/risk-rag-evaluator.git
+cd risk-rag-eval
+pip install -r requirements.txt
+
+**Quick Start (Docker):** 
+
+docker build -t risk-eval .
+docker run risk-eval
+
+**Results:** 
+![Results](Results.png)
+
+81.7% accuracy of RAG is enabled through a precise pipeline where the compliance SOPs are split into optimal 512 character chunks with 100 characters overlap, transformed in to small 384-dimensional embeddings using the Sentence Transformers, indexed in FAISS for fast cosine similarity search and thoroughly validated using the RAGAS metrics like  faithfulness (82%), context coverage (78%), and relevancy measure (85%), all of which are done independently of the LLM to produce a fraud investigation time reduced from hours to just seconds.
+
+**Future Scope:** 
+Future work on the Fraud RAG Evaluator will revolve around building on the existing high-accuracy retrieval system and scaling it up into a full-scale solution by incorporating multi-lingual support for global fraud policies using techniques like BERT multi-lingual, building out the real-time FastAPI service using Redis for immediate SOP views within the end-to-end fraud systems, incorporating active learning loops to improve chunking models using real-world misses, supporting multi-hop reasoning for queries including things like policy info and penalties, and supporting on-premise LLM models like Llama 3.1 ultimately evolving from a static evaluator into an autonomous compliance agent that handles end-to-end fraud investigations.
