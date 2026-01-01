@@ -7,25 +7,22 @@ This project involves the following processes -
 2. Calculates the RAGAS-like measures of semantic relevancy and coverage to evaluate those answers.
 3. To package the evaluation in a Docker image so that anyone can reproduce the results using only one command.
 4. The objective is to return precise SOP answers and measure the level of answer quality concerning a fraud rulebook/SOPs, and not for use as a live chat bot.
-
-
-
+---
+--- 
 ## **Problem:**
 Risk investigators know the compliance regulations intuitively, while case teams are buried in hundreds of SOP PDFs and Confluence pages. The 20-60 minute manual process of finding the exact regulations  for each alert leads to:
 -  Delayed decisions and investigation lag.
 -  Increased false positives.
 - Accidental fraudster payouts during the delay.
-
-
-
+---
+---
 ## **Solution:**
 Risk RAG Evaluator transforms fragmented compliance documents into a high performance retrieval engine using RAGAS metrics.
 - Performance: 81.7% accuracy using RAGAS metrics.
 - Efficiency: cutting investigation time from 60 minutes to seconds.
 Infrastructure: Custom chunking (512-char, 100-overlap) + Sentence Transformers (384-dim vectors) + FAISS indexing + Dockerized for portability.
-
-
-
+---
+---
 ## **Technology:**
 | Layer      | Technology            | Specs                                      |
 | ---------- | --------------------- | ------------------------------------------ |
@@ -33,9 +30,8 @@ Infrastructure: Custom chunking (512-char, 100-overlap) + Sentence Transformers 
 | Embeddings | Sentence Transformers | all-MiniLM-L6-v2 (384-dimensional)         |
 | Vector DB  | FAISS                 | IndexFlatIP (Cosine Similarity)            |
 | Logic      | Python / Scikit-learn | TF-IDF Tokenization & Snowball Stemming    |
-
-
-
+---
+---
 ## **How to use it:**
 ### **Prerequisites**
 - Docker installed and running.
