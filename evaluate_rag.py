@@ -11,11 +11,11 @@ from typing import Dict, List
 
 class SuperchargedNoLLMRAGEvaluator:
     def __init__(self):
-        print(" Loading SUPERCHARGED models...")
+        print("Loading SUPERCHARGED models...")
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
         nltk.download('punkt', quiet=True)
         self.stemmer = SnowballStemmer('english')
-        print(" Supercharged evaluator ready!")
+        print("Supercharged evaluator ready!")
     
     def super_faithfulness(self, text1: str, text2: str) -> float:
         def stem_words(text):
