@@ -11,7 +11,7 @@ from typing import Dict, List
 
 class SuperchargedNoLLMRAGEvaluator:
     def __init__(self):
-        print("" Loading SUPERCHARGED models...")
+        print(" Loading SUPERCHARGED models...")
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
         nltk.download('punkt', quiet=True)
         self.stemmer = SnowballStemmer('english')
